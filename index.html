@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuizIA</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Página 1 - Menu -->
+  <section id="menu" class="page active">
+    <h1>QuizzIA</h1>
+    <p>Escolha uma pergunta para responder</p>
+
+    <div id="question-buttons">
+      <!-- Botões das perguntas gerados pelo JS -->
+    </div>
+
+    <div class="progress-container">
+      <div id="progress-bar"></div>
+      <span id="progress-text">0%</span>
+    </div>
+
+    <button id="finalizar">Finalizar Quiz</button>
+  </section>
+
+  <!-- Página 2 - Pergunta -->
+  <section id="quiz" class="page">
+    <h1 id="quiz-title"></h1>
+    <p id="quiz-question"></p>
+    <div id="quiz-options"></div>
+    <p id="quiz-feedback"></p>
+    <button onclick="voltarMenu()">Voltar ao Menu</button>
+  </section>
+
+  <!-- Página 3 - Resultado -->
+  <section id="resultado" class="page">
+    <h1>Seu Desempenho no Quiz de IA</h1>
+    <h2 id="mensagem-final"></h2>
+
+    <div class="progress-container">
+      <div id="final-progress-bar"></div>
+      <span id="final-progress-text"></span>
+    </div>
+
+    <p id="score"></p>
+    <div id="resumo"></div>
+
+    <button onclick="refazerQuiz()">Refazer Quiz</button>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
