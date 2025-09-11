@@ -3,52 +3,47 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>QuizIA</title>
+  <title>QuizzIA</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-  <!-- Página 1 - Menu -->
-  <section id="menu" class="page active">
+  <div class="container">
     <h1>QuizzIA</h1>
-    <p>Escolha uma pergunta para responder</p>
+    <p class="subtitle">ESCOLHA UM QUIZ</p>
 
-    <div id="question-buttons">
-      <!-- Botões das perguntas gerados pelo JS -->
+    <div class="quiz-grid">
+      <div class="quiz-item" onclick="selectQuiz(1)">
+        <img src="cpu.svg" alt="Quiz 1">
+        <span>1</span>
+        <div class="checkmark">✔</div>
+      </div>
+      <div class="quiz-item" onclick="selectQuiz(2)">
+        <img src="cpu.svg" alt="Quiz 2">
+        <span>2</span>
+      </div>
+      <div class="quiz-item" onclick="selectQuiz(3)">
+        <img src="cpu.svg" alt="Quiz 3">
+        <span>3</span>
+      </div>
+      <div class="quiz-item" onclick="selectQuiz(4)">
+        <img src="cpu.svg" alt="Quiz 4">
+        <span>4</span>
+      </div>
+      <div class="quiz-item" onclick="selectQuiz(5)">
+        <img src="cpu.svg" alt="Quiz 5">
+        <span>5</span>
+      </div>
+      <div class="quiz-item" onclick="selectQuiz(6)">
+        <img src="cpu.svg" alt="Quiz 6">
+        <span>6</span>
+      </div>
     </div>
 
     <div class="progress-container">
-      <div id="progress-bar"></div>
-      <span id="progress-text">0%</span>
+      <div class="progress-bar"></div>
+      <span class="progress-text">16,67%</span>
     </div>
-
-    <button id="finalizar">Finalizar Quiz</button>
-  </section>
-
-  <!-- Página 2 - Pergunta -->
-  <section id="quiz" class="page">
-    <h1 id="quiz-title"></h1>
-    <p id="quiz-question"></p>
-    <div id="quiz-options"></div>
-    <p id="quiz-feedback"></p>
-    <button onclick="voltarMenu()">Voltar ao Menu</button>
-  </section>
-
-  <!-- Página 3 - Resultado -->
-  <section id="resultado" class="page">
-    <h1>Seu Desempenho no Quiz de IA</h1>
-    <h2 id="mensagem-final"></h2>
-
-    <div class="progress-container">
-      <div id="final-progress-bar"></div>
-      <span id="final-progress-text"></span>
-    </div>
-
-    <p id="score"></p>
-    <div id="resumo"></div>
-
-    <button onclick="refazerQuiz()">Refazer Quiz</button>
-  </section>
+  </div>
 
   <script src="script.js"></script>
 </body>
