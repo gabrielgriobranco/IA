@@ -53,8 +53,8 @@
     }
 
     .caixa-alternativas button:hover {
-      background: #00c853;
-      color: white;
+      background: #fff;  /* muda para branco ao passar o mouse */
+      color: #333;
       transform: scale(1.03);
     }
 
@@ -81,11 +81,6 @@
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
       backdrop-filter: blur(5px);
     }
-
-    .caixa-resultado h2 {
-      margin-bottom: 20px;
-      color: #00c853;
-    }
   </style>
 </head>
 <body>
@@ -95,18 +90,14 @@
     <div class="caixa-alternativas"></div>
   </div>
 
-  <!-- Resultado da pergunta -->
-  <div class="container caixa-resultado">
-    <h2>Resultado</h2>
-    <p class="texto-resultado"></p>
-  </div>
+  <!-- Resultado da pergunta (agora vazio, sem mensagem) -->
+  <div class="container caixa-resultado"></div>
 
   <script>
     const caixaPrincipal = document.querySelector(".caixa-principal");
     const caixaPerguntas = document.querySelector(".caixa-perguntas");
     const caixaAlternativas = document.querySelector(".caixa-alternativas");
     const caixaResultado = document.querySelector(".caixa-resultado");
-    const textoResultado = document.querySelector(".texto-resultado");
 
     // Apenas a primeira pergunta
     const pergunta = {
@@ -137,8 +128,7 @@
 
           setTimeout(() => {
             caixaPrincipal.style.display = "none";
-            caixaResultado.style.display = "block";
-            textoResultado.textContent = alternativa.correta ? "Você acertou!" : "Você errou!";
+            caixaResultado.style.display = "block"; // mostra apenas a caixa, sem texto
           }, 800);
         });
 
