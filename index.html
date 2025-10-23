@@ -1,53 +1,60 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
- <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <title>QuizzIA</title>
- <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuizzIA</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
- <div class="container">
-   <h1>QuizzIA</h1>
-   <p class="subtitle">ESCOLHA UM QUIZ</p>
 
+  <!-- 🔹 Menu de Navegação -->
+  <nav class="nav-menu">
+    <a href="#">HOME</a>
+    <a href="dicas.html">DICAS</a>
+    <a href="#">NOTÍCIAS</a>
+    <a href="#">SOBRE</a>
+  </nav>
 
-   <div class="quiz-grid">
-     <div class="quiz-item" onclick="selectQuiz(1)">
-       <img src="img/Cópia_de_Página_Inicial_do_Site__1_-removebg-preview.png" alt="Quiz 1">
-       <span>1</span>
-       <div class="checkmark">✔</div>
-     </div>
-     <div class="quiz-item" onclick="selectQuiz(2)">
-       <img src="img/Cópia_de_Página_Inicial_do_Site__1_-removebg-preview.png" alt="Quiz 2">
-       <span>2</span>
-     </div>
-     <div class="quiz-item" onclick="selectQuiz(3)">
-       <img src="img/Cópia_de_Página_Inicial_do_Site__1_-removebg-preview.png" alt="Quiz 3">
-       <span>3</span>
-     </div>
-     <div class="quiz-item" onclick="selectQuiz(4)">
-       <img src="img/Cópia_de_Página_Inicial_do_Site__1_-removebg-preview.png" alt="Quiz 4">
-       <span>4</span>
-     </div>
-     <div class="quiz-item" onclick="selectQuiz(5)">
-       <img src="img/Cópia_de_Página_Inicial_do_Site__1_-removebg-preview.png" alt="Quiz 5">
-       <span>5</span>
-     </div>
-     <div class="quiz-item" onclick="selectQuiz(6)">
-       <img src="img/Cópia_de_Página_Inicial_do_Site__1_-removebg-preview.png" alt="Quiz 6">
-       <span>6</span>
-     </div>
-   </div>
+  <!-- 🔹 Conteúdo Principal -->
+  <div class="container">
+    <h1>QuizzIA</h1>
+    <p class="subtitle">ESCOLHA UM QUIZ</p>
 
+    <div class="quiz-grid">
+      <div class="quiz-item" onclick="selectQuiz(1)">
+        <img src="img/Cópia_de_Página_Inicial_do_Site__1_-removebg-preview.png" alt="Quiz 1">
+        <span>1</span>
+        <div class="checkmark">✔</div>
+      </div>
+      <div class="quiz-item" onclick="selectQuiz(2)">
+        <img src="img/Cópia_de_Página_Inicial_do_Site__1_-removebg-preview.png" alt="Quiz 2">
+        <span>2</span>
+      </div>
+      <div class="quiz-item" onclick="selectQuiz(3)">
+        <img src="img/Cópia_de_Página_Inicial_do_Site__1_-removebg-preview.png" alt="Quiz 3">
+        <span>3</span>
+      </div>
+      <div class="quiz-item" onclick="selectQuiz(4)">
+        <img src="img/Cópia_de_Página_Inicial_do_Site__1_-removebg-preview.png" alt="Quiz 4">
+        <span>4</span>
+      </div>
+      <div class="quiz-item" onclick="selectQuiz(5)">
+        <img src="img/Cópia_de_Página_Inicial_do_Site__1_-removebg-preview.png" alt="Quiz 5">
+        <span>5</span>
+      </div>
+      <div class="quiz-item" onclick="selectQuiz(6)">
+        <img src="img/Cópia_de_Página_Inicial_do_Site__1_-removebg-preview.png" alt="Quiz 6">
+        <span>6</span>
+      </div>
+    </div>
 
-   <div class="progress-container">
-     <div class="progress-bar"></div>
-     <span class="progress-text">16,67%</span>
-   </div>
- </div>
+    <div class="progress-container">
+      <div class="progress-bar"></div>
+      <span class="progress-text">16,67%</span>
+    </div>
+  </div>
 
-
- <script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
