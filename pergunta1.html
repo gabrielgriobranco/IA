@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="QuizzIA" content="width=device-width, initial-scale=1.0">
-  <title>QuizzIA</title>
+  <title>Pergunta 1 - QuizzIA</title>
   <style>
     /* Fundo e fonte */
     body {
@@ -18,7 +18,7 @@
       color: white;
     }
 
-    /* Container principal (visual translúcido) */
+    /* Container principal */
     .container {
       background: rgba(0, 0, 0, 0.7);
       padding: 40px;
@@ -86,22 +86,6 @@
       margin-bottom: 20px;
       color: #00c853;
     }
-
-    .botao-reiniciar {
-      background: #00c853;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      padding: 12px 20px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    .botao-reiniciar:hover {
-      background: #00e676;
-      transform: scale(1.05);
-    }
   </style>
 </head>
 <body>
@@ -111,11 +95,10 @@
     <div class="caixa-alternativas"></div>
   </div>
 
-  <!-- Resultado -->
+  <!-- Resultado da pergunta -->
   <div class="container caixa-resultado">
     <h2>Resultado</h2>
     <p class="texto-resultado"></p>
-    <button class="botao-reiniciar">Reiniciar Quiz</button>
   </div>
 
   <script>
@@ -124,74 +107,27 @@
     const caixaAlternativas = document.querySelector(".caixa-alternativas");
     const caixaResultado = document.querySelector(".caixa-resultado");
     const textoResultado = document.querySelector(".texto-resultado");
-    const botaoReiniciar = document.querySelector(".botao-reiniciar");
 
-    const perguntas = [
-      {
-        enunciado: "1. O que é Inteligência Artificial (IA)?",
-        alternativas: [
-          { texto: "A) Um sistema que simula a inteligência humana em máquinas.", correta: true },
-          { texto: "B) Um tipo de vírus que afeta apenas robôs.", correta: false }
-        ]
-      },
-      {
-        enunciado: "2. Qual dessas tarefas pode ser feita por uma IA?",
-        alternativas: [
-          { texto: "A) Pintar um quadro com sentimentos humanos.", correta: false },
-          { texto: "B) Reconhecer rostos em imagens automaticamente.", correta: true }
-        ]
-      },
-      {
-        enunciado: "3. O ChatGPT é um exemplo de quê?",
-        alternativas: [
-          { texto: "A) Uma IA especializada em linguagem natural.", correta: true },
-          { texto: "B) Um programa para criar vídeos 3D.", correta: false }
-        ]
-      },
-      {
-        enunciado: "4. IA pode aprender com dados. Isso significa que ela:",
-        alternativas: [
-          { texto: "A) Fica mais inteligente toda vez que é reiniciada.", correta: false },
-          { texto: "B) Melhora seu desempenho com exemplos e informações.", correta: true }
-        ]
-      },
-      {
-        enunciado: "5. Qual das opções é um risco possível do uso irresponsável da IA?",
-        alternativas: [
-          { texto: "A) Tornar as pessoas mais felizes automaticamente.", correta: false },
-          { texto: "B) Tomar decisões injustas ou enviesadas.", correta: true }
-        ]
-      },
-      {
-        enunciado: "6. IA precisa ser treinada. Isso quer dizer que:",
-        alternativas: [
-          { texto: "A) Ela aprende sozinha sem qualquer informação anterior.", correta: false },
-          { texto: "B) Ela precisa de dados e exemplos para aprender.", correta: true }
-        ]
-      }
-    ];
-
-    let indiceAtual = 0;
-    let pontuacao = 0;
+    // Apenas a primeira pergunta
+    const pergunta = {
+      enunciado: "1. O que é Inteligência Artificial (IA)?",
+      alternativas: [
+        { texto: "A) Um sistema que simula a inteligência humana em máquinas.", correta: true },
+        { texto: "B) Um tipo de vírus que afeta apenas robôs.", correta: false }
+      ]
+    };
 
     function mostraPergunta() {
-      if (indiceAtual >= perguntas.length) {
-        mostraResultado();
-        return;
-      }
-
-      const perguntaAtual = perguntas[indiceAtual];
-      caixaPerguntas.textContent = perguntaAtual.enunciado;
+      caixaPerguntas.textContent = pergunta.enunciado;
       caixaAlternativas.innerHTML = "";
 
-      perguntaAtual.alternativas.forEach(alternativa => {
+      pergunta.alternativas.forEach(alternativa => {
         const botao = document.createElement("button");
         botao.textContent = alternativa.texto;
 
         botao.addEventListener("click", () => {
           if (alternativa.correta) {
             botao.classList.add("correto");
-            pontuacao++;
           } else {
             botao.classList.add("errado");
           }
@@ -200,28 +136,15 @@
           Array.from(caixaAlternativas.children).forEach(btn => btn.disabled = true);
 
           setTimeout(() => {
-            indiceAtual++;
-            mostraPergunta();
+            caixaPrincipal.style.display = "none";
+            caixaResultado.style.display = "block";
+            textoResultado.textContent = alternativa.correta ? "Você acertou!" : "Você errou!";
           }, 800);
         });
 
         caixaAlternativas.appendChild(botao);
       });
     }
-
-    function mostraResultado() {
-      caixaPrincipal.style.display = "none";
-      caixaResultado.style.display = "block";
-      textoResultado.textContent = `Você acertou ${pontuacao} de ${perguntas.length} perguntas!`;
-    }
-
-    botaoReiniciar.addEventListener("click", () => {
-      indiceAtual = 0;
-      pontuacao = 0;
-      caixaResultado.style.display = "none";
-      caixaPrincipal.style.display = "block";
-      mostraPergunta();
-    });
 
     mostraPergunta();
   </script>
