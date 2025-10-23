@@ -54,6 +54,7 @@ h1 {
 
 .quiz-menu a:hover {
   transform: scale(1.1);
+  color: white; /* mantém a cor branca no hover */
 }
 
 .quiz-menu img {
