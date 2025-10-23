@@ -8,22 +8,43 @@
 </head>
 <body>
 
+  <!-- 🔹 Conteúdo Principal -->
   <div class="container">
     <h1>QuizzIA</h1>
     <p class="subtitle">ESCOLHA UM QUIZ</p>
 
+    <!-- 🔹 Menu de quizzes -->
     <nav class="quiz-menu">
-      <a href="pergunta1.html" class="quiz-item" data-id="pergunta1">
+      <a href="pergunta1.html" class="quiz-item" data-num="1" data-id="pergunta1">
         <img src="img/Cópia_de_Página_Inicial_do_Site__1_-removebg-preview.png" alt="Quiz 1">
         <span>1</span>
         <div class="checkmark" style="display:none;"></div>
       </a>
-      <a href="pergunta2.html" class="quiz-item" data-id="pergunta2">
+      <a href="pergunta2.html" class="quiz-item" data-num="2" data-id="pergunta2">
         <img src="img/Cópia_de_Página_Inicial_do_Site__1_-removebg-preview.png" alt="Quiz 2">
         <span>2</span>
         <div class="checkmark" style="display:none;"></div>
       </a>
-      <!-- Repetir para os demais quizzes -->
+      <a href="pergunta3.html" class="quiz-item" data-num="3" data-id="pergunta3">
+        <img src="img/Cópia_de_Página_Inicial_do_Site__1_-removebg-preview.png" alt="Quiz 3">
+        <span>3</span>
+        <div class="checkmark" style="display:none;"></div>
+      </a>
+      <a href="pergunta4.html" class="quiz-item" data-num="4" data-id="pergunta4">
+        <img src="img/Cópia_de_Página_Inicial_do_Site__1_-removebg-preview.png" alt="Quiz 4">
+        <span>4</span>
+        <div class="checkmark" style="display:none;"></div>
+      </a>
+      <a href="pergunta5.html" class="quiz-item" data-num="5" data-id="pergunta5">
+        <img src="img/Cópia_de_Página_Inicial_do_Site__1_-removebg-preview.png" alt="Quiz 5">
+        <span>5</span>
+        <div class="checkmark" style="display:none;"></div>
+      </a>
+      <a href="pergunta6.html" class="quiz-item" data-num="6" data-id="pergunta6">
+        <img src="img/Cópia_de_Página_Inicial_do_Site__1_-removebg-preview.png" alt="Quiz 6">
+        <span>6</span>
+        <div class="checkmark" style="display:none;"></div>
+      </a>
     </nav>
 
     <div class="progress-container">
@@ -32,30 +53,35 @@
     </div>
   </div>
 
+  <!-- 🔹 Script para atualizar ícones e progresso -->
   <script>
     const quizzes = document.querySelectorAll(".quiz-item");
 
-    // Antes de responder: nenhum sinal aparece
-    quizzes.forEach(q => {
-      q.querySelector(".checkmark").style.display = "none";
-    });
+    // Função para mostrar checkmark e atualizar progresso
+    function selectQuiz(num, resultado) {
+      const selected = quizzes[num - 1];
+      const checkmarkDiv = selected.querySelector(".checkmark");
+      checkmarkDiv.style.display = "block";
 
-    // Depois de responder: atualiza sinais e progresso
+      // Mostra ✔ ou ❌ apenas depois de responder
+      checkmarkDiv.textContent = resultado === "acertou" ? "✅" : "❌";
+
+      // Atualiza progresso
+      const respondidos = Array.from(quizzes).filter(q => q.querySelector(".checkmark").style.display === "block").length;
+      const progress = (respondidos / quizzes.length) * 100;
+      document.querySelector(".progress-bar").style.width = progress + "%";
+      document.querySelector(".progress-text").innerText = progress.toFixed(2) + "%";
+    }
+
+    // Ao carregar a página, verifica localStorage e mostra sinais apenas dos respondidos
     quizzes.forEach(q => {
-      const id = q.getAttribute("data-id");
+      const id = q.dataset.id;
       const resultado = localStorage.getItem(`resultado_${id}`);
       if (resultado) {
-        const check = q.querySelector(".checkmark");
-        check.style.display = "block";
-        check.textContent = resultado === "acertou" ? "✅" : "❌";
+        const num = parseInt(q.dataset.num);
+        selectQuiz(num, resultado);
       }
     });
-
-    // Atualiza barra de progresso automaticamente
-    const respondidos = Array.from(quizzes).filter(q => localStorage.getItem(`resultado_${q.dataset.id}`)).length;
-    const progress = (respondidos / quizzes.length) * 100;
-    document.querySelector(".progress-bar").style.width = progress + "%";
-    document.querySelector(".progress-text").innerText = progress.toFixed(2) + "%";
   </script>
 
 </body>
