@@ -64,12 +64,13 @@
       "pergunta6"
     ];
 
+    // Mostra os sinais apenas depois que a pergunta for respondida
     perguntas.forEach(id => {
       const resultado = localStorage.getItem(`resultado_${id}`);
       if (resultado) {
         const elemento = document.querySelector(`.quiz-menu a[href="${id}.html"] .checkmark`);
         if (elemento) {
-          elemento.style.display = "block";
+          elemento.style.display = "block"; // mostra apenas depois de responder
           elemento.textContent = resultado === "acertou" ? "✅" : "❌";
         }
       }
