@@ -76,12 +76,12 @@ h1 {
   position: absolute;
   top: -5px;
   right: -5px;
-  background: #00c853;
-  color: white;
-  font-size: 14px;
-  padding: 3px 6px;
-  border-radius: 50%;
-  display: none;
+  font-size: 18px;    /* tamanho do ícone */
+  color: white;        /* cor do ícone */
+  display: none;       /* só aparece quando houver resultado */
+  background: none;    /* remove fundo verde */
+  padding: 0;          /* remove padding */
+  border-radius: 0;    /* remove borda arredondada */
 }
 
 /* Barra de progresso */
