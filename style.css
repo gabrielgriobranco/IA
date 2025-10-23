@@ -31,27 +31,32 @@ h1 {
   color: #ddd;
 }
 
-/* Grid de quizzes */
-.quiz-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 100px);
-  gap: 30px;
+/* 🔹 Menu de quizzes */
+.quiz-menu {
+  display: flex;
+  flex-wrap: wrap;
   justify-content: center;
+  gap: 30px;
   margin-bottom: 40px;
 }
 
-.quiz-item {
-  position: relative;
-  cursor: pointer;
-  text-align: center;
+.quiz-menu a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
   transition: transform 0.2s;
+  position: relative;
 }
 
-.quiz-item:hover {
+.quiz-menu a:hover {
   transform: scale(1.1);
 }
 
-.quiz-item img {
+.quiz-menu img {
   width: 100%;           /* ocupa toda a largura do item */
   height: auto;           /* mantém a proporção */
   max-width: 60px;        /* limita o tamanho máximo */
@@ -60,13 +65,13 @@ h1 {
   margin: 0 auto;
 }
 
-.quiz-item span {
+.quiz-menu span {
   display: block;
   margin-top: 10px;
   font-size: 18px;
 }
 
-.checkmark {
+.quiz-menu .checkmark {
   position: absolute;
   top: -5px;
   right: -5px;
