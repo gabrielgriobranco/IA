@@ -13,34 +13,34 @@
     <h1>QuizzIA</h1>
     <p class="subtitle">ESCOLHA UM QUIZ</p>
 
-    <!-- 🔹 Menu de quizzes usando nav -->
+    <!-- 🔹 Menu de quizzes -->
     <nav class="quiz-menu">
-      <a href="pergunta1.html">
+      <a href="pergunta1.html" class="quiz-item">
         <img src="img/Cópia_de_Página_Inicial_do_Site__1_-removebg-preview.png" alt="Quiz 1">
         <span>1</span>
         <div class="checkmark"></div>
       </a>
-      <a href="pergunta2.html">
+      <a href="pergunta2.html" class="quiz-item">
         <img src="img/Cópia_de_Página_Inicial_do_Site__1_-removebg-preview.png" alt="Quiz 2">
         <span>2</span>
         <div class="checkmark"></div>
       </a>
-      <a href="pergunta3.html">
+      <a href="pergunta3.html" class="quiz-item">
         <img src="img/Cópia_de_Página_Inicial_do_Site__1_-removebg-preview.png" alt="Quiz 3">
         <span>3</span>
         <div class="checkmark"></div>
       </a>
-      <a href="pergunta4.html">
+      <a href="pergunta4.html" class="quiz-item">
         <img src="img/Cópia_de_Página_Inicial_do_Site__1_-removebg-preview.png" alt="Quiz 4">
         <span>4</span>
         <div class="checkmark"></div>
       </a>
-      <a href="pergunta5.html">
+      <a href="pergunta5.html" class="quiz-item">
         <img src="img/Cópia_de_Página_Inicial_do_Site__1_-removebg-preview.png" alt="Quiz 5">
         <span>5</span>
         <div class="checkmark"></div>
       </a>
-      <a href="pergunta6.html">
+      <a href="pergunta6.html" class="quiz-item">
         <img src="img/Cópia_de_Página_Inicial_do_Site__1_-removebg-preview.png" alt="Quiz 6">
         <span>6</span>
         <div class="checkmark"></div>
@@ -53,7 +53,7 @@
     </div>
   </div>
 
-  <!-- 🔹 Script para atualizar ícones conforme respostas -->
+  <!-- 🔹 Script para atualizar ícones e progresso -->
   <script>
     const perguntas = [
       "pergunta1",
@@ -64,17 +64,32 @@
       "pergunta6"
     ];
 
-    // Mostra os sinais apenas depois que a pergunta for respondida
-    perguntas.forEach(id => {
+    // Atualiza checkmarks apenas se a pergunta já foi respondida
+    perguntas.forEach((id, index) => {
       const resultado = localStorage.getItem(`resultado_${id}`);
       if (resultado) {
+        selectQuiz(index + 1);
         const elemento = document.querySelector(`.quiz-menu a[href="${id}.html"] .checkmark`);
         if (elemento) {
-          elemento.style.display = "block"; // mostra apenas depois de responder
+          elemento.style.display = "block";
           elemento.textContent = resultado === "acertou" ? "✅" : "❌";
         }
       }
     });
+
+    // Função para mostrar checkmark e atualizar progresso
+    function selectQuiz(num) {
+      const quizzes = document.querySelectorAll(".quiz-item");
+      quizzes.forEach(q => q.querySelector(".checkmark").style.display = "none");
+
+      const selected = quizzes[num - 1];
+      selected.querySelector(".checkmark").style.display = "block";
+
+      // Atualiza progresso (1 de 6 = 16.67%)
+      const progress = (num / quizzes.length) * 100;
+      document.querySelector(".progress-bar").style.width = progress + "%";
+      document.querySelector(".progress-text").innerText = progress.toFixed(2) + "%";
+    }
   </script>
 
 </body>
