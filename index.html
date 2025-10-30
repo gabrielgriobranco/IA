@@ -8,12 +8,10 @@
 </head>
 <body>
 
-  <!-- 🔹 Conteúdo Principal -->
   <div class="container">
     <h1>QuizzIA</h1>
     <p class="subtitle">ESCOLHA UM QUIZ</p>
 
-    <!-- 🔹 Menu de quizzes -->
     <nav class="quiz-menu">
       <a href="pergunta1.html" class="quiz-item" data-num="1" data-id="pergunta1">
         <img src="img/Cópia_de_Página_Inicial_do_Site__1_-removebg-preview.png" alt="Quiz 1">
@@ -51,32 +49,47 @@
       <div class="progress-bar"></div>
       <span class="progress-text">0%</span>
     </div>
+
+    <!-- Botão opcional para limpar tudo -->
+    <button id="reset" style="margin-top:20px;">Reiniciar Quiz</button>
   </div>
 
-  <!-- 🔹 Script -->
   <script>
     const quizzes = document.querySelectorAll(".quiz-item");
 
-    // 🔸 Apaga resultados antigos sempre que recarregar a página inicial
-    quizzes.forEach(q => {
-      const id = q.dataset.id;
-      localStorage.removeItem(`resultado_${id}`);
-    });
-
-    // 🔹 Função para mostrar checkmark e atualizar progresso
+    // 🔹 Função para mostrar ícone e atualizar progresso
     function selectQuiz(num, resultado) {
       const selected = quizzes[num - 1];
-      const checkmarkDiv = selected.querySelector(".checkmark");
-      checkmarkDiv.style.display = "block";
-      checkmarkDiv.textContent = resultado === "acertou" ? "✅" : "❌";
+      const checkmark = selected.querySelector(".checkmark");
+      checkmark.style.display = "block";
+      checkmark.textContent = resultado === "acertou" ? "✅" : "❌";
 
       const respondidos = Array.from(quizzes).filter(q => q.querySelector(".checkmark").style.display === "block").length;
-      const progress = (respondidos / quizzes.length) * 100;
-      document.querySelector(".progress-bar").style.width = progress + "%";
-      document.querySelector(".progress-text").innerText = progress.toFixed(2) + "%";
+      const progresso = (respondidos / quizzes.length) * 100;
+      document.querySelector(".progress-bar").style.width = progresso + "%";
+      document.querySelector(".progress-text").innerText = progresso.toFixed(0) + "%";
     }
 
-    // 🔹 Ícones e progresso só aparecem após responder (não carregam com refresh)
+    // 🔸 Exibe os ícones salvos (apenas se já respondeu)
+    quizzes.forEach(q => {
+      const id = q.dataset.id;
+      const resultado = localStorage.getItem(`resultado_${id}`);
+      if (resultado) {
+        const num = parseInt(q.dataset.num);
+        selectQuiz(num, resultado);
+      }
+    });
+
+    // 🔸 Botão opcional para limpar tudo manualmente
+    document.getElementById("reset").addEventListener("click", () => {
+      quizzes.forEach(q => {
+        const id = q.dataset.id;
+        localStorage.removeItem(`resultado_${id}`);
+        q.querySelector(".checkmark").style.display = "none";
+      });
+      document.querySelector(".progress-bar").style.width = "0%";
+      document.querySelector(".progress-text").innerText = "0%";
+    });
   </script>
 
 </body>
