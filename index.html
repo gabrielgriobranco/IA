@@ -53,35 +53,30 @@
     </div>
   </div>
 
-  <!-- 🔹 Script para atualizar ícones e progresso -->
+  <!-- 🔹 Script -->
   <script>
     const quizzes = document.querySelectorAll(".quiz-item");
 
-    // Função para mostrar checkmark e atualizar progresso
+    // 🔸 Apaga resultados antigos sempre que recarregar a página inicial
+    quizzes.forEach(q => {
+      const id = q.dataset.id;
+      localStorage.removeItem(`resultado_${id}`);
+    });
+
+    // 🔹 Função para mostrar checkmark e atualizar progresso
     function selectQuiz(num, resultado) {
       const selected = quizzes[num - 1];
       const checkmarkDiv = selected.querySelector(".checkmark");
       checkmarkDiv.style.display = "block";
-
-      // Mostra ✔ ou ❌ apenas depois de responder
       checkmarkDiv.textContent = resultado === "acertou" ? "✅" : "❌";
 
-      // Atualiza progresso
       const respondidos = Array.from(quizzes).filter(q => q.querySelector(".checkmark").style.display === "block").length;
       const progress = (respondidos / quizzes.length) * 100;
       document.querySelector(".progress-bar").style.width = progress + "%";
       document.querySelector(".progress-text").innerText = progress.toFixed(2) + "%";
     }
 
-    // Ao carregar a página, verifica localStorage e mostra sinais apenas dos respondidos
-    quizzes.forEach(q => {
-      const id = q.dataset.id;
-      const resultado = localStorage.getItem(`resultado_${id}`);
-      if (resultado) {
-        const num = parseInt(q.dataset.num);
-        selectQuiz(num, resultado);
-      }
-    });
+    // 🔹 Ícones e progresso só aparecem após responder (não carregam com refresh)
   </script>
 
 </body>
