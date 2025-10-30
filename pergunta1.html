@@ -2,10 +2,9 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <meta name="QuizzIA" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pergunta 1 - QuizzIA</title>
   <style>
-    /* Fundo e fonte */
     body {
       margin: 0;
       padding: 0;
@@ -18,7 +17,6 @@
       color: white;
     }
 
-    /* Container principal */
     .container {
       background: rgba(0, 0, 0, 0.7);
       padding: 40px;
@@ -30,14 +28,12 @@
       backdrop-filter: blur(5px);
     }
 
-    /* Pergunta */
     .caixa-perguntas {
       font-size: 22px;
       font-weight: bold;
       margin-bottom: 30px;
     }
 
-    /* Botões das alternativas */
     .caixa-alternativas button {
       display: block;
       width: 100%;
@@ -53,7 +49,7 @@
     }
 
     .caixa-alternativas button:hover {
-      background: #fff;  /* muda para branco ao passar o mouse */
+      background: #fff;
       color: #333;
       transform: scale(1.03);
     }
@@ -70,7 +66,6 @@
   </style>
 </head>
 <body>
-  <!-- Caixa principal -->
   <div class="container caixa-principal">
     <div class="caixa-perguntas"></div>
     <div class="caixa-alternativas"></div>
@@ -80,7 +75,6 @@
     const caixaPerguntas = document.querySelector(".caixa-perguntas");
     const caixaAlternativas = document.querySelector(".caixa-alternativas");
 
-    // Apenas a primeira pergunta
     const pergunta = {
       enunciado: "1. O que é Inteligência Artificial (IA)?",
       alternativas: [
@@ -93,26 +87,25 @@
       caixaPerguntas.textContent = pergunta.enunciado;
       caixaAlternativas.innerHTML = "";
 
-      pergunta.alternativas.forEach((alternativa, index) => {
+      pergunta.alternativas.forEach((alternativa) => {
         const botao = document.createElement("button");
         botao.textContent = alternativa.texto;
 
         botao.addEventListener("click", () => {
-          // Marca o botão como correto ou errado
-          if (alternativa.correta) botao.classList.add("correto");
-          else botao.classList.add("errado");
+          // Aplica estilo
+          botao.classList.add(alternativa.correta ? "correto" : "errado");
 
-          // Desabilita os botões
+          // Desativa todos
           Array.from(caixaAlternativas.children).forEach(btn => btn.disabled = true);
 
-          // Salva resultado no localStorage
+          // Salva o resultado no localStorage
           const resultado = alternativa.correta ? "acertou" : "errou";
           localStorage.setItem("resultado_pergunta1", resultado);
 
-          // Redireciona para a página inicial após 0.8s
+          // Redireciona após 1s
           setTimeout(() => {
             window.location.href = "index.html";
-          }, 800);
+          }, 1000);
         });
 
         caixaAlternativas.appendChild(botao);

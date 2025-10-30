@@ -16,43 +16,38 @@
       <a href="pergunta1.html" class="quiz-item" data-num="1" data-id="pergunta1">
         <img src="img/Cópia_de_Página_Inicial_do_Site__1_-removebg-preview.png" alt="Quiz 1">
         <span>1</span>
-        <div class="checkmark" style="display:none;"></div>
+        <div class="checkmark"></div>
       </a>
       <a href="pergunta2.html" class="quiz-item" data-num="2" data-id="pergunta2">
         <img src="img/Cópia_de_Página_Inicial_do_Site__1_-removebg-preview.png" alt="Quiz 2">
         <span>2</span>
-        <div class="checkmark" style="display:none;"></div>
+        <div class="checkmark"></div>
       </a>
       <a href="pergunta3.html" class="quiz-item" data-num="3" data-id="pergunta3">
         <img src="img/Cópia_de_Página_Inicial_do_Site__1_-removebg-preview.png" alt="Quiz 3">
         <span>3</span>
-        <div class="checkmark" style="display:none;"></div>
+        <div class="checkmark"></div>
       </a>
       <a href="pergunta4.html" class="quiz-item" data-num="4" data-id="pergunta4">
         <img src="img/Cópia_de_Página_Inicial_do_Site__1_-removebg-preview.png" alt="Quiz 4">
         <span>4</span>
-        <div class="checkmark" style="display:none;"></div>
+        <div class="checkmark"></div>
       </a>
       <a href="pergunta5.html" class="quiz-item" data-num="5" data-id="pergunta5">
         <img src="img/Cópia_de_Página_Inicial_do_Site__1_-removebg-preview.png" alt="Quiz 5">
         <span>5</span>
-        <div class="checkmark" style="display:none;"></div>
+        <div class="checkmark"></div>
       </a>
       <a href="pergunta6.html" class="quiz-item" data-num="6" data-id="pergunta6">
         <img src="img/Cópia_de_Página_Inicial_do_Site__1_-removebg-preview.png" alt="Quiz 6">
         <span>6</span>
-        <div class="checkmark" style="display:none;"></div>
+        <div class="checkmark"></div>
       </a>
     </nav>
 
-    <!-- 🔹 Nova barra de progresso segmentada -->
     <div class="progress-container">
-      <div class="progress-segment" data-id="pergunta1"></div>
-      <div class="progress-segment" data-id="pergunta2"></div>
-      <div class="progress-segment" data-id="pergunta3"></div>
-      <div class="progress-segment" data-id="pergunta4"></div>
-      <div class="progress-segment" data-id="pergunta5"></div>
-      <div class="progress-segment" data-id="pergunta6"></div>
+      <div class="progress-bar"></div>
+      <span class="progress-text">0%</span>
     </div>
 
     <button id="reset" style="margin-top:20px;">Reiniciar Quiz</button>
@@ -60,35 +55,69 @@
 
   <script>
     const quizzes = document.querySelectorAll(".quiz-item");
-    const segmentos = document.querySelectorAll(".progress-segment");
+    const progressBar = document.querySelector(".progress-bar");
+    const progressText = document.querySelector(".progress-text");
 
-    // 🔹 Atualiza ícones e cores da barra
+    // Função: mostrar ícone e atualizar barra
+    function selectQuiz(num, resultado) {
+      const selected = quizzes[num - 1];
+      const checkmark = selected.querySelector(".checkmark");
+      checkmark.style.display = "block";
+      checkmark.textContent = resultado === "acertou" ? "✅" : "❌";
+
+      // Atualiza cores da barra
+      atualizarProgresso();
+    }
+
+    // Atualiza a barra de progresso colorindo por acertos/erros
+    function atualizarProgresso() {
+      const total = quizzes.length;
+      const widthPercent = 100 / total;
+      let gradient = "";
+
+      quizzes.forEach((q, i) => {
+        const id = q.dataset.id;
+        const resultado = localStorage.getItem(`resultado_${id}`);
+
+        if (resultado === "acertou") {
+          gradient += `#00c853 ${i * widthPercent}%, #00c853 ${(i + 1) * widthPercent}%, `;
+        } else if (resultado === "errou") {
+          gradient += `#e53935 ${i * widthPercent}%, #e53935 ${(i + 1) * widthPercent}%, `;
+        } else {
+          gradient += `#ccc ${i * widthPercent}%, #ccc ${(i + 1) * widthPercent}%, `;
+        }
+      });
+
+      progressBar.style.background = `linear-gradient(to right, ${gradient.slice(0, -2)})`;
+
+      const respondidos = Array.from(quizzes).filter(q => localStorage.getItem(`resultado_${q.dataset.id}`)).length;
+      const progresso = (respondidos / total) * 100;
+      progressText.innerText = `${progresso.toFixed(0)}%`;
+    }
+
+    // Mostra ícones apenas se já respondeu
     quizzes.forEach(q => {
       const id = q.dataset.id;
       const resultado = localStorage.getItem(`resultado_${id}`);
+      const checkmark = q.querySelector(".checkmark");
+      checkmark.style.display = "none"; // 🔹 Esconde por padrão
 
       if (resultado) {
         const num = parseInt(q.dataset.num);
-        const checkmark = q.querySelector(".checkmark");
-        checkmark.style.display = "block";
-        checkmark.textContent = resultado === "acertou" ? "✅" : "❌";
-
-        // Pinta a parte correspondente
-        const segmento = document.querySelector(`.progress-segment[data-id="${id}"]`);
-        if (segmento) {
-          segmento.classList.add(resultado === "acertou" ? "verde" : "vermelho");
-        }
+        selectQuiz(num, resultado);
       }
     });
 
-    // 🔸 Botão de reset
+    atualizarProgresso();
+
+    // Botão de reset
     document.getElementById("reset").addEventListener("click", () => {
       quizzes.forEach(q => {
         const id = q.dataset.id;
         localStorage.removeItem(`resultado_${id}`);
         q.querySelector(".checkmark").style.display = "none";
       });
-      segmentos.forEach(s => s.className = "progress-segment");
+      atualizarProgresso();
     });
   </script>
 
