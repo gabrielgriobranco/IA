@@ -10,3 +10,8 @@ function selectQuiz(num) {
   document.querySelector(".progress-bar").style.width = progress + "%";
   document.querySelector(".progress-text").innerText = progress.toFixed(2) + "%";
 }
+
+localStorage.setItem("resultado_pergunta1", resultado); // na pergunta 1
+localStorage.setItem("resultado_pergunta2", resultado); // na pergunta 2
+localStorage.setItem("resultado_pergunta3", resultado); // e assim por diante
+
