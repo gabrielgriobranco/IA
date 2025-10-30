@@ -45,50 +45,50 @@
       </a>
     </nav>
 
+    <!-- 🔹 Nova barra de progresso segmentada -->
     <div class="progress-container">
-      <div class="progress-bar"></div>
-      <span class="progress-text">0%</span>
+      <div class="progress-segment" data-id="pergunta1"></div>
+      <div class="progress-segment" data-id="pergunta2"></div>
+      <div class="progress-segment" data-id="pergunta3"></div>
+      <div class="progress-segment" data-id="pergunta4"></div>
+      <div class="progress-segment" data-id="pergunta5"></div>
+      <div class="progress-segment" data-id="pergunta6"></div>
     </div>
 
-    <!-- Botão opcional para limpar tudo -->
     <button id="reset" style="margin-top:20px;">Reiniciar Quiz</button>
   </div>
 
   <script>
     const quizzes = document.querySelectorAll(".quiz-item");
+    const segmentos = document.querySelectorAll(".progress-segment");
 
-    // 🔹 Função para mostrar ícone e atualizar progresso
-    function selectQuiz(num, resultado) {
-      const selected = quizzes[num - 1];
-      const checkmark = selected.querySelector(".checkmark");
-      checkmark.style.display = "block";
-      checkmark.textContent = resultado === "acertou" ? "✅" : "❌";
-
-      const respondidos = Array.from(quizzes).filter(q => q.querySelector(".checkmark").style.display === "block").length;
-      const progresso = (respondidos / quizzes.length) * 100;
-      document.querySelector(".progress-bar").style.width = progresso + "%";
-      document.querySelector(".progress-text").innerText = progresso.toFixed(0) + "%";
-    }
-
-    // 🔸 Exibe os ícones salvos (apenas se já respondeu)
+    // 🔹 Atualiza ícones e cores da barra
     quizzes.forEach(q => {
       const id = q.dataset.id;
       const resultado = localStorage.getItem(`resultado_${id}`);
+
       if (resultado) {
         const num = parseInt(q.dataset.num);
-        selectQuiz(num, resultado);
+        const checkmark = q.querySelector(".checkmark");
+        checkmark.style.display = "block";
+        checkmark.textContent = resultado === "acertou" ? "✅" : "❌";
+
+        // Pinta a parte correspondente
+        const segmento = document.querySelector(`.progress-segment[data-id="${id}"]`);
+        if (segmento) {
+          segmento.classList.add(resultado === "acertou" ? "verde" : "vermelho");
+        }
       }
     });
 
-    // 🔸 Botão opcional para limpar tudo manualmente
+    // 🔸 Botão de reset
     document.getElementById("reset").addEventListener("click", () => {
       quizzes.forEach(q => {
         const id = q.dataset.id;
         localStorage.removeItem(`resultado_${id}`);
         q.querySelector(".checkmark").style.display = "none";
       });
-      document.querySelector(".progress-bar").style.width = "0%";
-      document.querySelector(".progress-text").innerText = "0%";
+      segmentos.forEach(s => s.className = "progress-segment");
     });
   </script>
 
