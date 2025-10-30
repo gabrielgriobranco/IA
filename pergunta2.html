@@ -2,8 +2,8 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pergunta 1 - QuizzIA</title>
+  <meta name="QuizzIA" content="width=device-width, initial-scale=1.0">
+  <title>Pergunta 2 - QuizzIA</title>
   <style>
     body {
       margin: 0;
@@ -50,7 +50,6 @@
 
     .caixa-alternativas button:hover {
       background: #fff;
-      color: #333;
       transform: scale(1.03);
     }
 
@@ -76,10 +75,10 @@
     const caixaAlternativas = document.querySelector(".caixa-alternativas");
 
     const pergunta = {
-      enunciado: "2. Qual dessas tarefas pode ser feita por uma IA?",
+      enunciado: "2. Qual é o principal objetivo da IA?",
       alternativas: [
-        { texto: "A) Pintar um quadro com sentimentos humanos.", correta: false },
-        { texto: "B) Reconhecer rostos em imagens automaticamente.", correta: true }
+        { texto: "A) Substituir completamente os humanos.", correta: false },
+        { texto: "B) Auxiliar e automatizar tarefas inteligentes.", correta: true }
       ]
     };
 
@@ -92,20 +91,17 @@
         botao.textContent = alternativa.texto;
 
         botao.addEventListener("click", () => {
-          // Aplica estilo
-          botao.classList.add(alternativa.correta ? "correto" : "errado");
+          if (alternativa.correta) botao.classList.add("correto");
+          else botao.classList.add("errado");
 
-          // Desativa todos
           Array.from(caixaAlternativas.children).forEach(btn => btn.disabled = true);
 
-          // Salva o resultado no localStorage
           const resultado = alternativa.correta ? "acertou" : "errou";
-          localStorage.setItem("resultado_pergunta1", resultado);
+          localStorage.setItem("resultado_pergunta2", resultado); // 🔹 Salva com o nome certo
 
-          // Redireciona após 1s
           setTimeout(() => {
             window.location.href = "index.html";
-          }, 1000);
+          }, 800);
         });
 
         caixaAlternativas.appendChild(botao);
